@@ -1,0 +1,10 @@
+#!/bin/bash
+
+if [ -z "$1" ]; then
+	echo 'No Branch Specified'
+else
+	new_branch=$1
+	git checkout master
+	git pull
+	git checkout -b $new_branch
+fi
