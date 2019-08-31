@@ -1,0 +1,10 @@
+#!/bin/bash
+
+current_branch="$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)"
+
+if [ $current_branch == 'master' ] ; then
+	echo "You're on the master branch, dummy"
+else
+	git checkout master
+	git branch -D $current_branch
+fi
