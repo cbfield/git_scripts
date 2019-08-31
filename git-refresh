@@ -1,0 +1,17 @@
+#!/bin/bash
+
+remoteBranch=$1
+test -z "$remoteBranch" && echo "ERROR: Please provide the source remote branch." 1>&2 && exit 1
+
+# Find which is your current branch
+if currentBranch=$(git symbolic-ref --short -q HEAD)
+then
+    git stash
+    git checkout "$remoteBranch"
+    git pull --rebase origin "$remoteBranch"
+    git checkout "$currentBranch"
+    git rebase "$remoteBranch"
+    git stash apply
+else
+    echo ERROR: Cannot find the current branch!
+fi
